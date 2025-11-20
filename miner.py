@@ -13,7 +13,6 @@ import os
 
 os.environ['CUBLAS_WORKSPACE_CONFIG'] = ':4096:8'
 
-
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__)))
 PARENT_DIR = os.path.abspath(os.path.join(
     os.path.dirname(__file__), "..", ".."))
@@ -24,7 +23,6 @@ OUTPUT_DIR = os.environ.get("OUTPUT_DIR", "/output")
 
 DB_PATH = str(Path(nova_ph2.__file__).resolve().parent /
               "combinatorial_db" / "molecules.sqlite")
-
 
 def get_config(input_file: os.path = os.path.join(BASE_DIR, "input.json")):
     """
@@ -229,6 +227,7 @@ def calculate_final_scores(score_dict: dict,
                 len(antitarget_scores_for_mol)
             final_scores.append(avg_t - (config["antitarget_weight"] * avg_at))
 
+    # Store final scores in dataframe
     batch_scores = pd.DataFrame({
         "name": names,
         "smiles": smiles,
@@ -250,6 +249,7 @@ def calculate_final_scores(score_dict: dict,
             json.dump(all_scores, f, ensure_ascii=False, indent=2)
 
     return batch_scores
+
 
 def main(config: dict):
     iterative_sampling_loop(
