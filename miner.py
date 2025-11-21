@@ -369,7 +369,7 @@ def calculate_final_scores(score_dict: dict,
                 bt.logging.error(f"Error calculating InChIKey for {s}: {e}")
                 inchikey_list.append(None)
 
-    # Calculate final scores for each molecule
+    # Calculate final scores
     targets = score_dict['ps_target_scores']
     antitargets = score_dict['ps_antitarget_scores']
 
